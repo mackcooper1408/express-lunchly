@@ -109,7 +109,7 @@ class Customer {
 
   /** get customer full name */
 
-  fullName() {
+  get fullName() {
     let fullName = `${this.firstName} ${this.lastName}`;
     return fullName;
   }
