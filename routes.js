@@ -9,6 +9,8 @@ const Reservation = require("./models/reservation");
 
 const router = new express.Router();
 
+const NUM_BEST_CUSTOMERS = 10;
+
 /** Homepage: show list of customers. */
 
 router.get("/", async function (req, res, next) {
@@ -38,6 +40,17 @@ router.get("/", async function (req, res, next) {
 //     return next(err);
 //   }
 // });
+
+/** List of Best Customers */
+
+router.get("/best-customers/", async function (req, res, next) {
+  try {
+    const customers = await Customer.bestCustomers(NUM_BEST_CUSTOMERS);
+    return res.render("customer_list.html", { customers });
+  } catch (err) {
+    return next(err);
+  }
+})
 
 /** Form to add a new customer. */
 
