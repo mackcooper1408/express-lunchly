@@ -13,8 +13,17 @@ class Reservation {
     this.id = id;
     this.customerId = customerId;
     this.numGuests = numGuests;
-    this.startAt = startAt;
+    this.startAt = startAt; 
     this.notes = notes;
+  }
+
+  get numGuests() {
+    return this._numGuests;
+  }
+
+  set numGuests(val) {
+    if (val < 1) this._numGuests = 1;
+    else this._numGuests = val;
   }
 
   /** formatter for startAt */
