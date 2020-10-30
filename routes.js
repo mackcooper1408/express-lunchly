@@ -13,12 +13,31 @@ const router = new express.Router();
 
 router.get("/", async function (req, res, next) {
   try {
-    const customers = await Customer.all();
+    let customers;
+    if (req.query.search) {
+      const searchTerm = req.query.search;
+      customers = await Customer.search(searchTerm);
+    }
+    else {
+      customers = await Customer.all();
+    }
     return res.render("customer_list.html", { customers });
   } catch (err) {
     return next(err);
   }
 });
+
+/** Homepage: search filter POST METHOD */
+
+// router.post("/", async function (req, res, next) {
+//   try {
+//     const searchTerm = req.body.search;
+//     const customers = await Customer.search(searchTerm);
+//     return res.render("customer_list.html", { customers });
+//   } catch (err) {
+//     return next(err);
+//   }
+// });
 
 /** Form to add a new customer. */
 
